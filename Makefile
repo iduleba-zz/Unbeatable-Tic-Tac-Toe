@@ -21,13 +21,20 @@ $(LINK_TARGET) : $(OBJECTS)
 $(TEMP)/%.o : $(SRC)/%.c
 	$(COMPILER) -g -c $< -o $@
 
-run:
-	$(BIN)/$(LINK_TARGET)
-
 valgrind:
 	valgrind $(BIN)/$(LINK_TARGET)
 
 test: clean $(LINK_TARGET) valgrind
+
+git-commit-all: clean
+	git add .
+	git commit
+
+git-push:
+	git push
+
+run:
+	$(BIN)/$(LINK_TARGET)
 
 .PHONY: clean
 
