@@ -3,9 +3,10 @@
 
 #include "node.h"
 
-NODE *createTree(BOARD *board, char player, int pos);
+NODE *createTree(BOARD *board, char player);
 void normalizeTree(NODE *tree, char player);
 void deleteTree(NODE *tree);
-int chooseNextMove(NODE **currentNode);
+void updateCurrentNode(BOARD *board, NODE **currentNode);
+int chooseNextMove(NODE **currentNode, char player);
 
 #endif //end of _AI

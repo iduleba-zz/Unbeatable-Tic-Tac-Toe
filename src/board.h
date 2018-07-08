@@ -33,6 +33,8 @@ void cleanBoard(BOARD *board);
 void printBoard(BOARD *board);
 int setPosition(BOARD *board, char player, int x, int y);
 int state(BOARD *board);
+void copyBoard(BOARD *oldBoard, BOARD *board);
+int findFreePosNo(BOARD *board, int aux);
 int diff(BOARD *board1, BOARD *board2);
 
 #endif //end of _BOARD

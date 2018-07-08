@@ -38,11 +38,30 @@ void printBoard(BOARD *board){
     printf("\n");
 }
 
+void copyBoard(BOARD *oldBoard, BOARD *board){
+    int i;
+    board->n = oldBoard->n;
+    for (i = 0; i < board->n * board->n; i++){
+        board->board[i] = oldBoard->board[i];
+    }
+}
+
 int pos(int n, int x, int y){
     if (x < n && x >= 0 && y < n && y >= 0){
         return y*n + x;
     }
     return ERR_POSITION_OUT_OF_BOUNDS;
+}
+
+int findFreePosNo(BOARD *board, int aux){
+    int i, count = 0;
+    for(i = 0; i < board->n * board->n ; i++){
+        if(board->board[i] == ' '){
+            if(count == aux) return i;
+            count++;
+        }
+    }
+    return -1;
 }
 
 int setPosition(BOARD *board, char player, int x, int y){
@@ -132,8 +151,10 @@ int state(BOARD *board){
 }
 
 int diff(BOARD *board1, BOARD *board2){
+    if(board1 == NULL || board2 == NULL) return ERR_MEM;
     int i;
     for(i = 0; i < board1->n * board1->n; i++){
         if(board1->board[i] != board2->board[i]) return i;
     }
+    return FALSE;
 }

@@ -1,24 +1,5 @@
 #include "node.h"
 
-void copyBoard(BOARD *oldBoard, BOARD *board){
-    int i;
-    board->n = oldBoard->n;
-    for (i = 0; i < board->n * board->n; i++){
-        board->board[i] = oldBoard->board[i];
-    }
-}
-
-int findFreePosNo(BOARD *board, int aux){
-    int i, count = 0;
-    for(i = 0; i < board->n * board->n ; i++){
-        if(board->board[i] == ' '){
-            if(count == aux) return i;
-            count++;
-        }
-    }
-    return -1;
-}
-
 NODE *newNode(NODE *parent, char player, int n, int aux){
     int i, pos;
     NODE *node = (NODE *)malloc(sizeof(NODE));
@@ -26,12 +7,9 @@ NODE *newNode(NODE *parent, char player, int n, int aux){
         node->state = STATE_GAME_ON;
         node->free_slots = n*n;
         node->board = newBoard(n);
-        if(player == PLAYER2){
-            setPosition(node->board, PLAYER1, aux%n, aux/n);
-        }
         node->nodes = (NODE **)malloc(node->free_slots * sizeof(NODE *));
         for (i=0; i < node->free_slots; i++){
-            node->nodes[i] = newNode(node, player, n, i);
+            node->nodes[i] = newNode(node, PLAYER1, n, i);
         }
         return node;
     }

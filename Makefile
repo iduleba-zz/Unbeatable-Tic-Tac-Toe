@@ -27,6 +27,8 @@ run:
 valgrind:
 	valgrind $(BIN)/$(LINK_TARGET)
 
+test: clean $(LINK_TARGET) valgrind
+
 .PHONY: clean
 
  
