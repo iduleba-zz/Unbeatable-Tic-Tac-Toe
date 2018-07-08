@@ -3,6 +3,7 @@
 NODE *newNode(NODE *parent, char player, int n, int aux){
     int i, pos;
     NODE *node = (NODE *)malloc(sizeof(NODE));
+    node->points = 0;
     if(parent == NULL){
         node->state = STATE_GAME_ON;
         node->free_slots = n*n;

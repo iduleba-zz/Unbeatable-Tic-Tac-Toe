@@ -10,6 +10,7 @@ struct NODE{
     NODE **nodes;
     int free_slots;
     int state;
+    int points;
 };
 
 NODE *newNode(NODE *parent, char player, int n, int count);

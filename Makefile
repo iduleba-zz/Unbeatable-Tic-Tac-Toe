@@ -26,7 +26,7 @@ valgrind:
 
 test: clean $(LINK_TARGET) valgrind
 
-git-commit-all: clean
+git-commit-all:
 	git add .
 	git commit
 

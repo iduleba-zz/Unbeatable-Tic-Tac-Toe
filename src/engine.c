@@ -41,7 +41,6 @@ void humanPlay(BOARD *board, char player){
                 printf("Invalid error!\n");
         }
     }
-    printBoard(board);
 }
 
 int firstRound(BOARD *board){
@@ -61,18 +60,12 @@ void aiPlay(BOARD *board, char player, NODE **tree, NODE **currentNode){
     }
 
     updateCurrentNode(board, currentNode);
-
-    printf("Current node: %p %p\n", currentNode, *currentNode);
-    printf("tree: %p %p\n", tree, *tree);
     
     int pos = chooseNextMove(currentNode, player);
     if(pos == -1){
         printf("You have beaten me? How?\n");
     }
-    printBoard((*currentNode)->board);
-    printf("!%d!\n", pos);
     setPosition(board, player, pos%board->n, pos/board->n);
-    printBoard(board);
 }
 
 int main(int argc, char **argv){
@@ -114,6 +107,7 @@ int main(int argc, char **argv){
             }else{//machine to play
                 aiPlay(board, player, &tree, &currentNode);
             }
+            printBoard(board);
             //change player
             if(option != 2) ai = (ai == 0) ? 1 : 0; // if we are playing against the computer, alternate btween human an computer
             if(player == PLAYER1) player = PLAYER2;
