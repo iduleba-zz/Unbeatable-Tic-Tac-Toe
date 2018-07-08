@@ -131,7 +131,7 @@ char checkDiagonals(BOARD *board){
     p1 = 0; p2 = 0;
     for (i = 0; i < n; i++){
         if(board->board[(n-1)*i] == PLAYER1) p1++;
-        if(board->board[i*n + i] == PLAYER2) p2++;
+        if(board->board[(n-1)*i] == PLAYER2) p2++;
     }
     if(p1 == n) return PLAYER1;
     if(p2 == n) return PLAYER2;
