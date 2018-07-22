@@ -2,17 +2,17 @@
 #include "ai.h"
 
 void printMenu(){
-    printf("Welcome! Do you want to play TIC TAC TOE:\n");
-    printf("1) Against an AI\n or\n2) Against another player?\n");
-    printf("Option: ");
+    printf("\nWelcome! Do you want to play TIC TAC TOE:\n");
+    printf("\n1) Against an AI\n\n or\n\n2) Against another player?\n");
+    printf("\nOption: ");
 }
 
 void printSubMenu(){
-    printf("Do you wanna go first? (y/n) ");
+    printf("\nDo you wanna go first? (y/n) ");
 }
 
 void readPosition(int *x, int *y, char player){
-    printf("Player %c: (x y coordinates) ", player);
+    printf("\nPlayer %c: (x y coordinates) ", player);
     scanf("%d %d", x, y);
 }
 
@@ -51,9 +51,8 @@ int firstRound(BOARD *board){
     return -1;
 }
 
-void aiPlay(BOARD *board, char player, NODE **tree, NODE **currentNode){
+void aiPlay(BOARD *board, char player, NODE **tree, NODE **currentNode, int ai){
     if(*tree == NULL){
-        printf("TREE NULL\n");
         *tree = createTree(board, player);
         normalizeTree(*tree, player);
         *currentNode = *tree;
@@ -102,10 +101,10 @@ int main(int argc, char **argv){
         int ai = option;
 
         while(state(board) == STATE_GAME_ON){
-            if(ai == 0){//human to play
+            if(ai == 0 || ai == 2){//human to play
                 humanPlay(board, player);
             }else{//machine to play
-                aiPlay(board, player, &tree, &currentNode);
+                aiPlay(board, player, &tree, &currentNode, ai);
             }
             printBoard(board);
             //change player
@@ -137,7 +136,7 @@ int main(int argc, char **argv){
         if(first == 'y' || first == 'Y'){
             goto Start;
         }else if(first == 'n' || first == 'N'){
-            printf("Thanks for playing!");
+            printf("Thanks for playing!\n");
             return 0;
         }else{
             printf("Moron.\n");

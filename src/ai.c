@@ -9,11 +9,11 @@ void deleteTree(NODE *tree){
 }
 
 //minmax logic
-int normalizeTreeAux(NODE *node, char player){
+int normalizeTreeAux(NODE *node, char player, int minMax){
     int i;
     int value = 0;
-    int min = -1;
-    int max = 1;
+    int min = 10;
+    int max = -10;
     switch(node->state) {
         case STATE_PLAYER1_WINS :
             if(player == PLAYER1){ node->points = 10; }
@@ -27,19 +27,24 @@ int normalizeTreeAux(NODE *node, char player){
             return 0;
         default:
             for(i = 0; i < node->free_slots; i++){
-                //TODO
-                value = normalizeTreeAux(node->nodes[i], player);
-                if(value == -10){
-                    min = -10;
-                }else if(value == 10){
-                    max = 10;
+                value = normalizeTreeAux(node->nodes[i], player, (minMax == 0) ? 1 : 0);
+                if(value < min){
+                    min = value;
+                }
+                if(value > max){
+                    max = value;
                 }
             }
+            node->points = (minMax == 0) ? min : max;
+            return node->points;
     }
 }
 
 void normalizeTree(NODE *tree, char player){
-    normalizeTreeAux(tree, player);
+    int i, value;
+    for(i = 0; i < tree->free_slots; i++){
+        value = normalizeTreeAux(tree->nodes[i], player, 0);
+    }
 }
 
 int chooseNextMove(NODE **currentNode, char player){
@@ -51,9 +56,9 @@ int chooseNextMove(NODE **currentNode, char player){
         }
     }
     if(iMax != -1){
-            int ret = diff((*currentNode)->board, (*currentNode)->nodes[iMax]->board);
-            *currentNode = (*currentNode)->nodes[iMax];
-            return ret;
+        int ret = diff((*currentNode)->board, (*currentNode)->nodes[iMax]->board);
+        *currentNode = (*currentNode)->nodes[iMax];
+        return ret;
     }
     
     return -1;
