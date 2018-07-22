@@ -43,7 +43,7 @@ int normalizeTreeAux(NODE *node, char player, int minMax){
 void normalizeTree(NODE *tree, char player){
     int i, value;
     for(i = 0; i < tree->free_slots; i++){
-        value = normalizeTreeAux(tree->nodes[i], player, 0);
+        value = normalizeTreeAux(tree->nodes[i], player, (player==PLAYER2) ? 1 : 0);
     }
 }
 
